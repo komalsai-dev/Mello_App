@@ -67,17 +67,21 @@ def start_one_tap(req: OneTapRequest):
     if not steps:
         raise HTTPException(status_code=400, detail="Invalid sessionType")
     
-    # Join steps for full audio generation
     full_script = "\n".join(steps)
-    
-    # Check if audio already exists for this session/voice
     safe_voice = req.voiceId.replace("/", "_")
     filename = f"{req.sessionType}_full_{safe_voice}.mp3"
     upload_dir = getattr(settings, "upload_dir", "uploads")
     os.makedirs(upload_dir, exist_ok=True)
     file_path = os.path.join(upload_dir, filename)
     audio_url = f"/uploads/{filename}"
-    
+
+    # **Add these lines to log directory status**
+    print(f"UPLOAD DIR: {upload_dir}")
+    print(f"ABSOLUTE PATH: {os.path.abspath(upload_dir)}")
+    print(f"EXISTS: {os.path.exists(upload_dir)}")
+    print(f"WRITABLE: {os.access(upload_dir, os.W_OK)}")
+    print(f"FILES: {os.listdir(upload_dir) if os.path.exists(upload_dir) else 'N/A'}")
+
     # If audio exists, return it
     if os.path.exists(file_path):
         return OneTapResponse(audioUrl=audio_url, script=full_script, steps=steps)
