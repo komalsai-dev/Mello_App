@@ -102,19 +102,25 @@ def start_one_tap(req: OneTapRequest):
         }
     }
     
+    print("Sending request to ElevenLabs API...")
     response = requests.post(url, json=data, headers=headers)
-    
+    print(f"ElevenLabs response status: {response.status_code}")
+    print(f"ElevenLabs response content: {response.content[:500]}")  # Print first 500 bytes
+
     if response.status_code == 200:
+        print("Writing audio file...")
         with open(file_path, "wb") as f:
             f.write(response.content)
-        
+        print("Audio file written successfully.")
         return OneTapResponse(audioUrl=audio_url, script=full_script, steps=steps)
     else:
+        print("ElevenLabs API call failed.")
         # Fallback: use a random existing audio file if available
         fallback_url = get_random_existing_audio_url()
         if not fallback_url:
+            print("No fallback audio available.")
             raise HTTPException(status_code=500, detail="Failed to generate audio from ElevenLabs and no fallback audio available")
-        
+        print("Returning fallback audio.")
         return OneTapResponse(audioUrl=fallback_url, script=full_script, steps=steps)
 
 @router.post("/one-tap/step-audio")
