@@ -16,10 +16,9 @@ import { useAppStore } from '@/lib/store';
 import { useBackend } from '@/hooks/use-backend';
 import { api, DynamicQuestion } from '@/lib/api';
 import { toast } from 'sonner';
+import { BACKEND_URL } from '@/lib/config';
 
 type MeditationStep = 'mood' | 'voice' | 'questions' | 'summary' | 'breathing' | 'session' | 'complete';
-
-const BACKEND_URL = 'http://localhost:8000'; // Change if your backend runs elsewhere
 
 export default function MeditationPage() {
   const [currentStep, setCurrentStep] = useState<MeditationStep>('mood');

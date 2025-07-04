@@ -7,8 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSwipeable } from 'react-swipeable';
 import axios from 'axios';
-
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+import { BACKEND_URL } from '@/lib/config';
 const VOICE_ID = '21m00Tcm4TlvDq8ikWAM'; // Default voice
 const STEP_DURATION = 75; // 75 seconds per step (10 minutes / 8 steps)
 

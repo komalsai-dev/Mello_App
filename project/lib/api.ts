@@ -1,4 +1,6 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+import { BACKEND_URL } from './config';
+
+const API_BASE_URL = `${BACKEND_URL}/api`;
 
 class ApiError extends Error {
   constructor(public status: number, message: string) {

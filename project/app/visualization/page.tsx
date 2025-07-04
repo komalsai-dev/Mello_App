@@ -15,10 +15,9 @@ import { useAppStore } from '@/lib/store';
 import { useBackend } from '@/hooks/use-backend';
 import { api, DynamicQuestion } from '@/lib/api';
 import { toast } from 'sonner';
+import { BACKEND_URL } from '@/lib/config';
 
 type VisualizationStep = 'goal' | 'analysis' | 'voice' | 'questions' | 'challenges' | 'summary' | 'visualization' | 'complete';
-
-const BACKEND_URL = 'http://localhost:8000';
 
 // Goal categories with icons and descriptions
 const GOAL_CATEGORIES = [
