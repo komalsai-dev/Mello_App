@@ -49,7 +49,7 @@ export function BreathingAnimation({
     }, 100);
 
     return () => clearInterval(interval);
-  }, [isActive, breathingPattern]);
+  }, [isActive, breathingPattern, totalCycleTime]);
 
   const getPhaseText = () => {
     switch (phase) {
